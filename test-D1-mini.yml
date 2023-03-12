@@ -1,0 +1,48 @@
+esphome:
+  name: test
+
+esp8266:
+  board: d1_mini
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi: 
+  ssid: !secret ssid
+  password: !secret password
+  ap:
+    ssid: "Luna Fallback Hotspot"
+    password: "xyz12345"
+
+  
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+captive_portal:
+
+
+
+
+time:
+  - platform: sntp
+    id: zeit
+    on_time:
+      - seconds: /5
+        then:
+          - switch.turn_on: sw4
+          - delay: 1s    
+          - switch.turn_off: sw4
+
+sun:
+  latitude: 51.14°
+  longitude: 9.414°
+
+switch:
+  - platform: gpio
+    pin: D4
+    id: sw4
